@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "397388621232",
+    "firebase_url": "https://topilocal.firebaseio.com",
+    "project_id": "topilocal",
+    "storage_bucket": "topilocal.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397388621232:android:7247995906e020f2142275",
+        "android_client_info": {
+          "package_name": "com.kosmicdust.topilocal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397388621232-5ab4fs3g95anekd8ed3q1dmr07uhhime.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kosmicdust.topilocal",
+            "certificate_hash": "6c95b872c660dfa18a7547b9dff5cb4290da232d"
+          }
+        },
+        {
+          "client_id": "397388621232-dc25a6j40qnu8ni91fd31g0kqu9hd757.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA12LyfBlBHKe672Eaqw4BJWEReH_VTYUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397388621232-dc25a6j40qnu8ni91fd31g0kqu9hd757.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
