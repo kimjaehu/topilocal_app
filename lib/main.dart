@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-
-import './signin_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import './home.dart';
 
 void main() {
-  runApp(new MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    
-    return new MaterialApp(title: 'Topilocal',
-      theme: new ThemeData(primarySwatch: Colors.blue,),
-      home: new SigninPage(),
+    return MaterialApp(
+      title: 'Topilocal',
+      theme: ThemeData(
+        primarySwatch: Colors.grey,
+      ),
+      home: MyHome(),
     );
   }
 }

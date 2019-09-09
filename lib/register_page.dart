@@ -55,7 +55,7 @@ class RegisterPageState extends State<RegisterPage> {
                     _register();
                   }
                 },
-                child: const Text('Submit'),
+                child: const Text('Register'),
               ),
             ),
             Container(

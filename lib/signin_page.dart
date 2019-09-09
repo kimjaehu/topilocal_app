@@ -1,76 +1,218 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
+final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-class SigninPage extends StatefulWidget {
+class SignInPage extends StatefulWidget {
+  final String title = 'Log In';
   @override
-  State<StatefulWidget> createState() => new _SigninPageState();
+  State<StatefulWidget> createState() => SignInPageState();
 }
 
-class _SigninPageState extends State<SigninPage> {
-  
-  final signinFormKey = new GlobalKey<FormState>();
-
-  String _email;
-  String _password;
-
-  bool validateAndSave(){
-    final form = signinFormKey.currentState;
-    if (form.validate()) {
-      form.save();
-      print('Form is valid. $_email, $_password');
-      return true;
-    } 
-    return false;
+class SignInPageState extends State<SignInPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+        actions: <Widget>[
+          Builder(builder: (BuildContext context) {
+            return FlatButton(
+              child: const Text('Log Out'),
+              textColor: Theme.of(context).buttonColor,
+              onPressed: () async {
+                final FirebaseUser user = await _auth.currentUser();
+                if (user == null) {
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: const Text('No one has logged in.'),
+                  ));
+                  return;
+                }
+                _signOut();
+                final String uid = user.uid;
+                Scaffold.of(context).showSnackBar(SnackBar(
+                  content: Text(uid + ' has successfully log out.'),
+                ));
+              },
+            );
+          })
+        ],
+      ),
+      body: Builder(builder: (BuildContext context) {
+        return ListView(
+          scrollDirection: Axis.vertical,
+          children: <Widget>[
+            _EmailPasswordForm(),
+            _GoogleSignInSection(),
+          ],
+        );
+      }),
+    );
   }
 
-  void validateAndsubmit() async{
-    if (validateAndSave()){
-      try {
-        FirebaseUser user = (await _auth.signInWithEmailAndPassword(
-      email: _email,
-      password: _password,
-    )).user;
-        print('signedin ${user.uid}');
-      }
-      catch (error) {
-        print('error $error');
-      }
-    }
+  // Example code for sign out.
+  void _signOut() async {
+    await _auth.signOut();
+  }
+}
+
+class _EmailPasswordForm extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _EmailPasswordFormState();
+}
+
+class _EmailPasswordFormState extends State<_EmailPasswordForm> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _success;
+  String _userEmail;
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          TextFormField(
+            controller: _emailController,
+            decoration: InputDecoration(labelText: 'Email'),
+            validator: (String value) {
+              if (value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            controller: _passwordController,
+            decoration: InputDecoration(labelText: 'Password'),
+            validator: (String value) {
+              if (value.isEmpty) {
+                return 'Please enter some text';
+              }
+              return null;
+            },
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            alignment: Alignment.center,
+            child: RaisedButton(
+              onPressed: () async {
+                if (_formKey.currentState.validate()) {
+                  _signInWithEmailAndPassword();
+                }
+              },
+              child: const Text('Log In'),
+            ),
+          ),
+          Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              _success == null
+                  ? ''
+                  : (_success
+                      ? 'Successfully logged in ' + _userEmail
+                      : 'Log in failed'),
+              style: TextStyle(color: Colors.red),
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  // Example code of how to sign in with email and password.
+  void _signInWithEmailAndPassword() async {
+    final FirebaseUser user = (await _auth.signInWithEmailAndPassword(
+      email: _emailController.text,
+      password: _passwordController.text,
+    ))
+        .user;
+    if (user != null) {
+      setState(() {
+        _success = true;
+        _userEmail = user.email;
+      });
+    } else {
+      _success = false;
+    }
+  }
+}
+
+class _GoogleSignInSection extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _GoogleSignInSectionState();
+}
+
+class _GoogleSignInSectionState extends State<_GoogleSignInSection> {
+  bool _success;
+  String _userID;
+  @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('Topilocal Signin'),
-      ),
-      body: new Container(
-        padding: EdgeInsets.all(20.0),
-        child: new Form(
-          key: signinFormKey,
-          child: new Column(
-            children: <Widget>[
-              new TextFormField(
-                decoration: new InputDecoration(labelText: 'Email'),
-                validator: (value) => value.isEmpty ? 'Enter email.' : null,
-                onSaved: (value) => _email = value,
-              ),
-              new TextFormField(
-                decoration: new InputDecoration(labelText: 'Password'),
-                obscureText: true,
-                validator: (value) => value.isEmpty ? 'Enter password.' : null,
-                onSaved: (value) => _password = value,
-              ),
-              new RaisedButton(
-                child: new Text('Login', style: new TextStyle(fontSize: 20.0)),
-                onPressed: validateAndsubmit,
-              )
-            ],
+    return Column(
+      children: <Widget>[
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          alignment: Alignment.center,
+          child: RaisedButton(
+            onPressed: () async {
+              _signInWithGoogle();
+            },
+            child: const Text('Log in with Google'),
           ),
         ),
-      ),
+        Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Text(
+            _success == null
+                ? ''
+                : (_success
+                    ? 'Successfully logged in, uid: ' + _userID
+                    : 'Log in failed'),
+            style: TextStyle(color: Colors.red),
+          ),
+        )
+      ],
     );
+  }
+
+  // Example code of how to sign in with google.
+  void _signInWithGoogle() async {
+    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    final FirebaseUser user =
+        (await _auth.signInWithCredential(credential)).user;
+    assert(user.email != null);
+    assert(user.displayName != null);
+    assert(!user.isAnonymous);
+    assert(await user.getIdToken() != null);
+
+    final FirebaseUser currentUser = await _auth.currentUser();
+    assert(user.uid == currentUser.uid);
+    setState(() {
+      if (user != null) {
+        _success = true;
+        _userID = user.uid;
+      } else {
+        _success = false;
+      }
+    });
   }
 }
