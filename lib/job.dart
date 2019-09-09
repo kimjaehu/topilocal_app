@@ -19,6 +19,5 @@ class Job {
     this.scheduleEnd,
     this.hrlyWage,
     this.expiry,
-    
   );
 }

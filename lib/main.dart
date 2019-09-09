@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Topilocal',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        primarySwatch: Colors.lightBlue,
       ),
       home: MyHome(),
     );
