@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import './job.dart';
+import '../business/models/Job.dart';
 
 class HomeView extends StatelessWidget {
   final List<Job> jobList = [

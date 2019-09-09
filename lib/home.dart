@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:topilocal_app/home_view.dart';
 import 'package:topilocal_app/pages.dart';
 import './pages.dart';
-import './home_view.dart';
+import './views/home_view.dart';
+import './business/views/new_jobs/location_view.dart';
+import 'package:topilocal_app/business/models/Job.dart';
 
 class MyHome extends StatefulWidget {
   @override
@@ -14,14 +15,40 @@ class MyHome extends StatefulWidget {
 class _MyHomeState extends State<MyHome> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    HomeView(), SearchPage(), SavedPage(),AccountPage()
+    HomeView(),
+    SearchPage(),
+    SavedPage(),
+    AccountPage()
   ];
 
   @override
   Widget build(BuildContext context) {
+    final newJob = new Job(
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text('Topilocal'),
+        actions: <Widget>[
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NewJobLocationView(
+                              job: newJob,
+                            )));
+              }),
+        ],
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
