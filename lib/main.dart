@@ -1,26 +1,52 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:topilocal_app/services/auth_service.dart';
+import 'package:topilocal_app/views/landing_page.dart';
+import 'package:topilocal_app/widgets/provider_widget.dart';
+import 'package:topilocal_app/views/sign_up_view.dart';
+
 import './home.dart';
-import './views/landing_page.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Topilocal',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
+    return Provider(
+      auth: AuthService(),
+      child: MaterialApp(
+        title: 'Topilocal',
+        theme: ThemeData(
+          primarySwatch: Colors.purple,
+        ),
+        home: HomeController(),
+        routes: <String, WidgetBuilder>{
+          '/signUp': (BuildContext context) => SignUpView(
+                authFormType: AuthFormType.signUp,
+              ),
+          '/signIn': (BuildContext context) => SignUpView(
+                authFormType: AuthFormType.signIn,
+              ),
+          '/home': (BuildContext context) => HomeController(),
+        },
       ),
-      // home: MyHome(),
-      home: LandingPage(),
-      routes: <String, WidgetBuilder> {
-        '/signUp': (BuildContext context) => MyHome(),
-        '/home': (BuildContext context) => MyHome(),
+    );
+  }
+}
+
+class HomeController extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final AuthService auth = Provider.of(context).auth;
+    return StreamBuilder(
+      stream: auth.onAuthStateChanged,
+      builder: (context, AsyncSnapshot<String> snapshot) {
+        if (snapshot.connectionState == ConnectionState.active) {
+          final bool signedIn = snapshot.hasData;
+          return signedIn ? MyHome() : LandingPage();
+        }
+        return CircularProgressIndicator();
       },
     );
   }

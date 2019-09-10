@@ -86,7 +86,9 @@ class LandingPage extends StatelessWidget {
                         fontSize: 25,
                         fontWeight: FontWeight.w400),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed('/signIn');
+                  },
                 )
               ],
             ),

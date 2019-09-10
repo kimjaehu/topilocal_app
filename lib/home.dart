@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:topilocal_app/pages.dart';
 import 'package:topilocal_app/business/models/Job.dart';
+import 'package:topilocal_app/services/auth_service.dart';
+import 'package:topilocal_app/widgets/provider_widget.dart';
 
 import './pages.dart';
-
 import './personal/views/home_view.dart';
 import './business/views/business_home_view.dart';
 import './business/views/new_jobs/location_view.dart';
@@ -33,18 +34,8 @@ class _MyHomeState extends State<MyHome> {
 
   @override
   Widget build(BuildContext context) {
-    final newJob = new Job(
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-    );
+    final newJob =
+        new Job(null, null, null, null, null, null, null, null, null, null);
     return Scaffold(
       appBar: AppBar(
         title: Text('Topilocal'),
@@ -58,6 +49,17 @@ class _MyHomeState extends State<MyHome> {
                         builder: (context) => NewJobLocationView(
                               job: newJob,
                             )));
+              }),
+              IconButton(
+              icon: Icon(Icons.undo),
+              onPressed: () async {
+               try {
+                 AuthService auth = Provider.of(context).auth;
+                 await auth.signOut();
+                 print('Signed Out');               
+              } catch (e) {
+                print (e);
+              }
               }),
         ],
       ),
