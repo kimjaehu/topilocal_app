@@ -1,24 +1,22 @@
-class Job {
+class PersonalJob {
   String title;
   String businessName;
   String location;
   String duration;
-  DateTime startDate;
   String workDays;
-  String startTime;
-  String endTime;
+  DateTime scheduleStart;
+  DateTime scheduleEnd;
   double hrlyWage;
   DateTime expiry;
 
-  Job(
+  PersonalJob(
     this.title,
     this.businessName,
     this.location,
     this.duration,
-    this.startDate,
     this.workDays,
-    this.startTime,
-    this.endTime,
+    this.scheduleStart,
+    this.scheduleEnd,
     this.hrlyWage,
     this.expiry,
   );
@@ -28,10 +26,9 @@ class Job {
         'businessName': businessName,
         'location': location,
         'duration': duration,
-        'startDate': startDate,
         'workDays': workDays,
-        'scheduleStart': startTime,
-        'scheduleEnd': endTime,
+        'scheduleStart': scheduleStart,
+        'scheduleEnd': scheduleEnd,
         'hrlyWage': hrlyWage,
         'expiry': expiry,
       };

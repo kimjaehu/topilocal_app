@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../business/models/Job.dart';
+import '../models/Job.dart';
 
 class HomeView extends StatelessWidget {
-  final List<Job> jobList = [
-    Job('Server at Wonka', 'Wonka Industries', 'Toronto, ON', '> 1yr',
+  final List<PersonalJob> jobList = [
+    PersonalJob('Server at Wonka', 'Wonka Industries', 'Toronto, ON', '> 1yr',
         'Mon-Fri', DateTime.now(), DateTime.now(), 15.25, DateTime.now()),
-    Job('Truck Driver needed', 'Acme Corp.', 'Mississauga, ON', '> 1yr',
+    PersonalJob('Truck Driver needed', 'Acme Corp.', 'Mississauga, ON', '> 1yr',
         'Mon-Fri', DateTime.now(), DateTime.now(), 18.25, DateTime.now()),
-    Job(
+    PersonalJob(
         'Good lawyer at a large lawfirm',
         'Stark Industries',
         'Toronto, ON',
@@ -19,9 +19,9 @@ class HomeView extends StatelessWidget {
         DateTime.now(),
         115.50,
         DateTime.now()),
-    Job('Wand maker', 'Ollivander\'s Wand Shop', 'Burlington, ON', '> 1yr',
+    PersonalJob('Wand maker', 'Ollivander\'s Wand Shop', 'Burlington, ON', '> 1yr',
         'Mon-Fri', DateTime.now(), DateTime.now(), 25.25, DateTime.now()),
-    Job(
+    PersonalJob(
         'Programmer part time web development',
         'Gekko & Co',
         'Markham, ON',
@@ -31,7 +31,7 @@ class HomeView extends StatelessWidget {
         DateTime.now(),
         35.25,
         DateTime.now()),
-    Job('Robin', 'Wayne Enterprises', 'Toronto, ON', '> 1yr', 'Mon-Fri',
+    PersonalJob('Robin', 'Wayne Enterprises', 'Toronto, ON', '> 1yr', 'Mon-Fri',
         DateTime.now(), DateTime.now(), 250.25, DateTime.now()),
     // 'Wonka Industries',
     // 'Acme Corp.',

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:topilocal_app/pages.dart';
-import './pages.dart';
-import './views/home_view.dart';
-import './business/views/new_jobs/location_view.dart';
 import 'package:topilocal_app/business/models/Job.dart';
+
+import './pages.dart';
+
+import './personal/views/home_view.dart';
+import './business/views/business_home_view.dart';
+import './business/views/new_jobs/location_view.dart';
 
 class MyHome extends StatefulWidget {
   @override
@@ -14,7 +17,14 @@ class MyHome extends StatefulWidget {
 
 class _MyHomeState extends State<MyHome> {
   int _currentIndex = 0;
-  final List<Widget> _children = [
+  final List<Widget> _businessChildren = [
+    BusinessHomeView(),
+    BusinessSearchPage(),
+    BusinessSavedPage(),
+    BusinessAccountPage()
+  ];
+
+  final List<Widget> _personalChildren = [
     HomeView(),
     SearchPage(),
     SavedPage(),
@@ -24,6 +34,7 @@ class _MyHomeState extends State<MyHome> {
   @override
   Widget build(BuildContext context) {
     final newJob = new Job(
+      null,
       null,
       null,
       null,
@@ -50,7 +61,7 @@ class _MyHomeState extends State<MyHome> {
               }),
         ],
       ),
-      body: _children[_currentIndex],
+      body: _businessChildren[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
         showSelectedLabels: false,
