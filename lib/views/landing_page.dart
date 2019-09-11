@@ -70,7 +70,7 @@ class LandingPage extends StatelessWidget {
                         primaryButtonText: 'Create My Account',
                         primaryButtonRoute: '/signUp',
                         secondaryButtonText: 'Maybe Later',
-                        secondaryButtonRoute: '/home',
+                        secondaryButtonRoute: '/anonymousSignIn',
                       ),
                     );
                   },

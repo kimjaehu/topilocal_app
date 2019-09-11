@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:topilocal_app/services/auth_service.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:topilocal_app/widgets/provider_widget.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 
 // Todo move this to color location
 final primaryColor = const Color(0xFF966fd6);
@@ -78,13 +80,39 @@ class _SignUpViewState extends State<SignUpView> {
     }
   }
 
+  Future submitAnonymous() async {
+    final auth = Provider.of(context).auth;
+    await auth.signInAnonymously();
+    Navigator.of(context).pushReplacementNamed('/home');
+  }
+
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
 
     if (authFormType == AuthFormType.anonymous) {
-      return Scaffold();
+      submitAnonymous();
+      return Scaffold(
+          backgroundColor: primaryColor,
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SpinKitRotatingCircle(
+                color: Colors.white,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  'Loading',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                  ),
+                ),
+              )
+            ],
+          ));
     } else {
       return Scaffold(
         body: Container(
@@ -94,17 +122,13 @@ class _SignUpViewState extends State<SignUpView> {
           child: SafeArea(
             child: Column(
               children: <Widget>[
-                SizedBox(
-                  height: _height * 0.025,
-                ),
+                SizedBox(height: _height * 0.025),
                 showAlert(),
                 SizedBox(
                   height: _height * 0.025,
                 ),
                 buildHeaderText(),
-                SizedBox(
-                  height: _height * 0,
-                ),
+                SizedBox(height: _height * 0),
                 Padding(
                   padding: const EdgeInsets.all(40.0),
                   child: Form(
@@ -245,6 +269,7 @@ class _SignUpViewState extends State<SignUpView> {
   List<Widget> buildButtons() {
     String _switchButtonText, _newFormState, _submitButtonText;
     bool _showPasswordReset = false;
+    bool _showSocial = true;
 
     if (authFormType == AuthFormType.signIn) {
       _switchButtonText = 'Create new account';
@@ -255,6 +280,7 @@ class _SignUpViewState extends State<SignUpView> {
       _switchButtonText = 'Return to sign in';
       _newFormState = 'signIp';
       _submitButtonText = 'Submit';
+      _showSocial = false;
     } else {
       _switchButtonText = 'Have an account? Sign in.';
       _newFormState = 'signIn';
@@ -289,7 +315,8 @@ class _SignUpViewState extends State<SignUpView> {
         onPressed: () {
           switchFormState(_newFormState);
         },
-      )
+      ),
+      buildSocialIcons(_showSocial),
     ];
   }
 
@@ -305,6 +332,37 @@ class _SignUpViewState extends State<SignUpView> {
             authFormType = AuthFormType.reset;
           });
         },
+      ),
+      visible: visible,
+    );
+  }
+
+  Widget buildSocialIcons(bool visible) {
+    final _auth = Provider.of(context).auth;
+    return Visibility(
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.8,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Divider(
+              color: Colors.white,
+            ),
+            SizedBox(height: 10.0),
+            GoogleSignInButton(
+              onPressed: () async {
+                try {
+                  await _auth.signInWithGoogle();
+                  Navigator.of(context).pushReplacementNamed('/home');
+                } catch (e) {
+                  setState(() {
+                   _warning = e.message;
+                  });
+                }
+              },
+            ),
+          ],
+        ),
       ),
       visible: visible,
     );

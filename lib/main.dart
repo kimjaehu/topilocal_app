@@ -28,6 +28,9 @@ class MyApp extends StatelessWidget {
           '/signIn': (BuildContext context) => SignUpView(
                 authFormType: AuthFormType.signIn,
               ),
+          '/anonymousSignIn': (BuildContext context) => SignUpView(
+                authFormType: AuthFormType.anonymous,
+              ),
           '/home': (BuildContext context) => HomeController(),
         },
       ),
