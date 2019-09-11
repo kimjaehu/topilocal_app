@@ -3,7 +3,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:topilocal_app/widgets/custom_dialog.dart';
 
 class LandingPage extends StatelessWidget {
-  final primaryColor = const Color(0xFF7851a9);
+  final primaryColor = const Color(0xFF966fd6);
 
   @override
   Widget build(BuildContext context) {

@@ -36,6 +36,16 @@ class AuthService {
   signOut() {
     return _firebaseAuth.signOut();
   }
+
+  // Reset Password
+  Future sendPasswordResetEmail(String email) async {
+    return _firebaseAuth.sendPasswordResetEmail(email:email);
+  }
+
+  // Sign In anonymous
+  Future signInAnonymously() {
+    return _firebaseAuth.signInAnonymously();
+  }
 }
 
 class EmailValidator {
