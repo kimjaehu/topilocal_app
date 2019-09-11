@@ -4,7 +4,7 @@ import 'package:topilocal_app/views/landing_page.dart';
 import 'package:topilocal_app/widgets/provider_widget.dart';
 import 'package:topilocal_app/views/sign_up_view.dart';
 
-import './home.dart';
+import './views/navigation_view.dart';
 
 void main() {
   runApp(MyApp());

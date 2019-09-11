@@ -4,10 +4,10 @@ import 'package:topilocal_app/business/models/Job.dart';
 import 'package:topilocal_app/services/auth_service.dart';
 import 'package:topilocal_app/widgets/provider_widget.dart';
 
-import './pages.dart';
-import './personal/views/home_view.dart';
-import './business/views/business_home_view.dart';
-import './business/views/new_jobs/location_view.dart';
+import '../pages.dart';
+import '../personal/views/home_view.dart';
+import '../business/views/business_home_view.dart';
+import '../business/views/new_jobs/location_view.dart';
 
 class MyHome extends StatefulWidget {
   @override
