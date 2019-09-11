@@ -8,7 +8,7 @@ import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 // Todo move this to color location
 final primaryColor = const Color(0xFF966fd6);
 
-enum AuthFormType { signIn, signUp, reset, anonymous }
+enum AuthFormType { signIn, signUp, reset, anonymous, convert }
 
 class SignUpView extends StatefulWidget {
   final AuthFormType authFormType;
@@ -33,6 +33,8 @@ class _SignUpViewState extends State<SignUpView> {
       setState(() {
         authFormType = AuthFormType.signUp;
       });
+    } else if (state == 'home') {
+      Navigator.of(context).pop();
     } else {
       setState(() {
         authFormType = AuthFormType.signIn;
@@ -183,13 +185,12 @@ class _SignUpViewState extends State<SignUpView> {
 
   AutoSizeText buildHeaderText() {
     String _headerText;
-
-    if (authFormType == AuthFormType.signUp) {
-      _headerText = 'Create New Account';
+    if (authFormType == AuthFormType.signIn) {
+      _headerText = 'Sign In';
     } else if (authFormType == AuthFormType.reset) {
       _headerText = 'Reset Password';
     } else {
-      _headerText = 'Sign In';
+      _headerText = 'Create New Account'; 
     }
 
     return AutoSizeText(
@@ -281,6 +282,10 @@ class _SignUpViewState extends State<SignUpView> {
       _newFormState = 'signIp';
       _submitButtonText = 'Submit';
       _showSocial = false;
+    } else if (authFormType == AuthFormType.convert) {
+      _switchButtonText = 'Cancel';
+      _newFormState = 'home';
+      _submitButtonText = 'Sign Up';
     } else {
       _switchButtonText = 'Have an account? Sign in.';
       _newFormState = 'signIn';

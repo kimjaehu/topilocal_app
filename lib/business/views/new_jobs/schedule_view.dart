@@ -3,7 +3,7 @@ import 'package:topilocal_app/business/models/Job.dart';
 import 'package:intl/intl.dart';
 import 'dart:async';
 
-import './summary_view.dart';
+import 'summary_view.dart';
 
 class NewJobScheduleView extends StatefulWidget {
   final Job job;

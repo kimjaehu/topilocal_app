@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-class BusinessSearchPage extends StatelessWidget {
+class BusinessSearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,7 +11,7 @@ class BusinessSearchPage extends StatelessWidget {
   }
 }
 
-class BusinessSavedPage extends StatelessWidget {
+class BusinessSavedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,7 +21,7 @@ class BusinessSavedPage extends StatelessWidget {
   }
 }
 
-class BusinessAccountPage extends StatelessWidget {
+class BusinessAccountView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,7 +31,7 @@ class BusinessAccountPage extends StatelessWidget {
   }
 }
 
-class SearchPage extends StatelessWidget {
+class SearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,7 +40,7 @@ class SearchPage extends StatelessWidget {
   }
 }
 
-class SavedPage extends StatelessWidget {
+class SavedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,7 +49,7 @@ class SavedPage extends StatelessWidget {
   }
 }
 
-class AccountPage extends StatelessWidget {
+class AccountView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

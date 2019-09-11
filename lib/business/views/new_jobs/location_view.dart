@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:topilocal_app/business/models/Job.dart';
 
-import './schedule_view.dart';
+import 'schedule_view.dart';
 
 class NewJobLocationView extends StatelessWidget {
   final Job job;

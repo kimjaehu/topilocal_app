@@ -3,8 +3,7 @@ import 'package:topilocal_app/services/auth_service.dart';
 import 'package:topilocal_app/views/landing_page.dart';
 import 'package:topilocal_app/widgets/provider_widget.dart';
 import 'package:topilocal_app/views/sign_up_view.dart';
-
-import './views/navigation_view.dart';
+import 'package:topilocal_app/views/navigation_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,6 +21,7 @@ class MyApp extends StatelessWidget {
         ),
         home: HomeController(),
         routes: <String, WidgetBuilder>{
+          '/home': (BuildContext context) => HomeController(),
           '/signUp': (BuildContext context) => SignUpView(
                 authFormType: AuthFormType.signUp,
               ),
@@ -31,7 +31,9 @@ class MyApp extends StatelessWidget {
           '/anonymousSignIn': (BuildContext context) => SignUpView(
                 authFormType: AuthFormType.anonymous,
               ),
-          '/home': (BuildContext context) => HomeController(),
+          '/convertUser': (BuildContext context) => SignUpView(
+                authFormType: AuthFormType.convert,
+              ),
         },
       ),
     );

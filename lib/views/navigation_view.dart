@@ -3,11 +3,10 @@ import 'package:topilocal_app/pages.dart';
 import 'package:topilocal_app/business/models/Job.dart';
 import 'package:topilocal_app/services/auth_service.dart';
 import 'package:topilocal_app/widgets/provider_widget.dart';
-
-import '../pages.dart';
-import '../personal/views/home_view.dart';
-import '../business/views/business_home_view.dart';
-import '../business/views/new_jobs/location_view.dart';
+import 'package:topilocal_app/pages.dart';
+import 'package:topilocal_app/personal/views/home_view.dart';
+import 'package:topilocal_app/business/views/business_home_view.dart';
+import 'package:topilocal_app/business/views/new_jobs/location_view.dart';
 
 class MyHome extends StatefulWidget {
   @override
@@ -20,16 +19,16 @@ class _MyHomeState extends State<MyHome> {
   int _currentIndex = 0;
   final List<Widget> _businessChildren = [
     BusinessHomeView(),
-    BusinessSearchPage(),
-    BusinessSavedPage(),
-    BusinessAccountPage()
+    BusinessSearchView(),
+    BusinessSavedView(),
+    AccountView(),
   ];
 
   final List<Widget> _personalChildren = [
     HomeView(),
-    SearchPage(),
-    SavedPage(),
-    AccountPage()
+    SearchView(),
+    SavedView(),
+    AccountView(),
   ];
 
   @override
@@ -61,6 +60,11 @@ class _MyHomeState extends State<MyHome> {
                 print (e);
               }
               }),
+              IconButton(
+              icon: Icon(Icons.account_circle),
+              onPressed: () {
+               Navigator.of(context).pushNamed('/convertUser');
+              }),
         ],
       ),
       body: _businessChildren[_currentIndex],
@@ -84,7 +88,7 @@ class _MyHomeState extends State<MyHome> {
             title: new Text('Saved'),
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.account_box),
+            icon: new Icon(Icons.account_circle),
             title: new Text('Account'),
           ),
         ],
