@@ -25,7 +25,6 @@ class NewJobSummaryView extends StatelessWidget {
             Text('start ${job.startTime}'),
             Text('end ${job.endTime}'),
             
-
             RaisedButton(
               child: Text('Submit'),
               onPressed: () async {

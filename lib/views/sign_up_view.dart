@@ -317,6 +317,7 @@ class _SignUpViewState extends State<SignUpView> {
             onPressed: submit,
           )),
       showPasswordReset(_showPasswordReset),
+      SizedBox(height:MediaQuery.of(context).size.height * 0.0125,),
       FlatButton(
         child: Text(
           _switchButtonText,
