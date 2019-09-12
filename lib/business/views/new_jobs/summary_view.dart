@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:topilocal_app/business/models/Job.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:topilocal_app/widgets/provider_widget.dart';
 
 class NewJobSummaryView extends StatelessWidget {
   final db = Firestore.instance;
@@ -29,8 +30,8 @@ class NewJobSummaryView extends StatelessWidget {
               child: Text('Submit'),
               onPressed: () async {
                 //save data to firebase later
-                await db.collection("jobs").add(job.toJson());
-
+                final uid = await Provider.of(context).auth.getCurrentUID();
+                await db.collection('userData').document(uid).collection('jobs').add(job.toJson());
                 Navigator.of(context).popUntil((route) => route.isFirst);
               },
             ),

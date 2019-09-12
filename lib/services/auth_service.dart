@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:topilocal_app/main.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -48,6 +47,25 @@ class AuthService {
   // Sign In anonymous
   Future signInAnonymously() {
     return _firebaseAuth.signInAnonymously();
+  }
+
+  Future convertUserWithEmail(String email, String password) async {
+    final currentUser = await _firebaseAuth.currentUser();
+    final credential = EmailAuthProvider.getCredential(email:email, password: password);
+    await currentUser.linkWithCredential(credential);
+
+
+  }
+
+  Future convertUserwithGoogle() async {
+    final currentUser = await _firebaseAuth.currentUser();
+    final GoogleSignInAccount account = await _googleSignIn.signIn();
+    final GoogleSignInAuthentication _googleAuth = await account.authentication;
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      idToken: _googleAuth.idToken,
+      accessToken: _googleAuth.accessToken,
+    );
+    await currentUser.linkWithCredential(credential);
   }
 
   Future<String> signInWithGoogle() async {
