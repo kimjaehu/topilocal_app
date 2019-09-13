@@ -137,7 +137,7 @@ class _SignUpViewState extends State<SignUpView> {
                 buildHeaderText(),
                 SizedBox(height: _height * 0),
                 Padding(
-                  padding: const EdgeInsets.all(40.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: Form(
                     key: formKey,
                     child: Column(
@@ -203,7 +203,7 @@ class _SignUpViewState extends State<SignUpView> {
       maxLines: 1,
       textAlign: TextAlign.center,
       style: TextStyle(
-        fontSize: 35,
+        fontSize: 20,
         color: Colors.white,
       ),
     );
@@ -218,6 +218,7 @@ class _SignUpViewState extends State<SignUpView> {
           validator: EmailValidator.validate,
           style: TextStyle(
             fontSize: 16.0,
+            color: Colors.white,
           ),
           decoration: buildSignUpInputDecoration('Email'),
           onSaved: (value) => _email = value,
@@ -233,6 +234,7 @@ class _SignUpViewState extends State<SignUpView> {
         validator: EmailValidator.validate,
         style: TextStyle(
           fontSize: 16.0,
+          color: Colors.white,
         ),
         decoration: buildSignUpInputDecoration('Email'),
         onSaved: (value) => _email = value,
@@ -246,6 +248,7 @@ class _SignUpViewState extends State<SignUpView> {
         validator: PasswordValidator.validate,
         style: TextStyle(
           fontSize: 16.0,
+          color: Colors.white,
         ),
         decoration: buildSignUpInputDecoration('Password'),
         obscureText: true,
@@ -263,11 +266,23 @@ class _SignUpViewState extends State<SignUpView> {
   InputDecoration buildSignUpInputDecoration(String hint) {
     return InputDecoration(
       hintText: hint,
-      hintStyle: TextStyle(color: Colors.white),
+      hintStyle: TextStyle(
+        color: Colors.purple[50],
+      ),
       contentPadding: const EdgeInsets.only(
         left: 14.0,
         bottom: 10.0,
         top: 10.0,
+      ),
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.purple[50],
+        ),
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -317,7 +332,9 @@ class _SignUpViewState extends State<SignUpView> {
             onPressed: submit,
           )),
       showPasswordReset(_showPasswordReset),
-      SizedBox(height:MediaQuery.of(context).size.height * 0.0125,),
+      SizedBox(
+        height: MediaQuery.of(context).size.height * 0.0125,
+      ),
       FlatButton(
         child: Text(
           _switchButtonText,

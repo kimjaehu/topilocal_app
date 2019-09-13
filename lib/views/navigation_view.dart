@@ -3,10 +3,10 @@ import 'package:topilocal_app/pages.dart';
 import 'package:topilocal_app/business/models/Job.dart';
 import 'package:topilocal_app/services/auth_service.dart';
 import 'package:topilocal_app/widgets/provider_widget.dart';
-import 'package:topilocal_app/pages.dart';
 import 'package:topilocal_app/personal/views/home_view.dart';
 import 'package:topilocal_app/business/views/business_home_view.dart';
 import 'package:topilocal_app/business/views/new_jobs/location_view.dart';
+// import 'package:topilocal_app/views/sign_up_view.dart';
 
 class MyHome extends StatefulWidget {
   @override
@@ -49,22 +49,22 @@ class _MyHomeState extends State<MyHome> {
                               job: newJob,
                             )));
               }),
-              IconButton(
-              icon: Icon(Icons.undo),
-              onPressed: () async {
-               try {
-                 AuthService auth = Provider.of(context).auth;
-                 await auth.signOut();
-                 print('Signed Out');               
-              } catch (e) {
-                print (e);
-              }
-              }),
-              IconButton(
-              icon: Icon(Icons.account_circle),
-              onPressed: () {
-               Navigator.of(context).pushNamed('/convertUser');
-              }),
+              // IconButton(
+              // icon: Icon(Icons.undo),
+              // onPressed: () async {
+              //  try {
+              //    AuthService auth = Provider.of(context).auth;
+              //    await auth.signOut();
+              //    print('Signed Out');               
+              // } catch (e) {
+              //   print (e);
+              // }
+              // }),
+              // IconButton(
+              // icon: Icon(Icons.account_circle),
+              // onPressed: () {
+              //  Navigator.of(context).pushNamed('/convertUser');
+              // }),
         ],
       ),
       body: _businessChildren[_currentIndex],

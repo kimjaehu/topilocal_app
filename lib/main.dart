@@ -19,7 +19,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.purple,
         ),
-        home: HomeController(),
+        // home: HomeController(), // with sign in anonymously
+        home: SignUpView(
+          authFormType: AuthFormType.signIn,
+        ),
         routes: <String, WidgetBuilder>{
           '/home': (BuildContext context) => HomeController(),
           '/signUp': (BuildContext context) => SignUpView(
@@ -49,7 +52,10 @@ class HomeController extends StatelessWidget {
       builder: (context, AsyncSnapshot<String> snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           final bool signedIn = snapshot.hasData;
-          return signedIn ? MyHome() : LandingPage();
+          // return signedIn ? MyHome() : LandingPage(); //with sign in anonymously
+          return signedIn ? MyHome() : SignUpView(
+                authFormType: AuthFormType.signIn,
+              );
         }
         return CircularProgressIndicator();
       },
